@@ -1,0 +1,60 @@
+#crosshair {
+    height: 5%;
+    position: absolute;
+    z-index: 0;
+}
+
+/*body {*/
+/*    cursor: none;*/
+/*}*/
+
+/*.redbird {*/
+/*    position: absolute;*/
+/*}*/
+
+/*.bluebird {*/
+/*    position: absolute;*/
+/*}*/
+
+/*.yellowbird {*/
+/*    position: absolute;*/
+/*}*/
+
+.redflystraight {
+    display: block;
+}
+
+.redflyup {
+    display: none;
+}
+
+.redflydown {
+    display: none;
+}
+
+.yellowflyup {
+    display: none;
+    position: fixed;
+}
+
+.yellowflydown {
+    display: none;
+    position: fixed
+}
+
+.yellowflystraight {
+    display: block;
+    position: fixed;
+}
+
+.blueflyup {
+    display: none;
+}
+
+.blueflydown {
+    display: none;
+}
+
+.blueflystraight {
+    display: block;
+}
