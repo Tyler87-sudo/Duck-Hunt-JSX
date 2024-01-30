@@ -4,6 +4,14 @@ redbirdColor = document.getElementById("redbird")
 bluebirdColor = document.getElementById("bluebird");
 yellowbirdColor = document.getElementById("yellowbird")
 
+//Import Gunshot Sounds
+
+let gunshot1 = document.getElementById("gunshotSniper1")
+let gunshot2 = document.getElementById("gunshotShotgun1")
+let gunshot3 = document.getElementById("lasergunShot1")
+
+// Makes elements undraggable
+
 document.getElementById("redbird").ondragstart = function() {
     return false;
 }
@@ -20,83 +28,9 @@ document.getElementById("crosshair").ondragstart = function() {
     return false;
 }
 
-
 //Import Assets
 
 let crosshair = document.getElementById("crosshair")
-
-//Declare Xmove, Ymove and Rotational variables:
-
-let firstMove = true;
-let xMoves = []
-let yMoves = [];
-
-//Test Code
-
-let start, previousTimeStamp;
-let done = false;
-
-function generateXMove() {
-    //makes sure the first move is always at x = 0 and y = 0 on viewport
-    if (firstMove === true) {
-        xMoves[0] = 0;
-        firstMove = false;
-    } else {
-        let c = getComputedStyle(redbirdColor);
-        birdYPos = c.getPropertyValue("top")
-        birdXPos = c.getPropertyValue("left")
-        let x = parseInt(birdXPos);
-        console.log(birdXPos)
-        console.log(birdYPos)
-        //Clears array before adding new value, so xMoves[0] is always the correct value!
-        xMoves = []
-        xMoves.push(x + 0.000001)
-    }
-}
-
-let firstYMove = true;
-
-
-function generateYMove() {
-    let c = getComputedStyle(redbirdColor);
-    birdYPos = c.getPropertyValue("top")
-    let x = parseInt(birdYPos);
-    let moveDecider = Math.round(Math.random() * 10)
-    yMoves[0] = Math.floor(Math.random() * window.screen.height)
-    if (yMoves[0] > 600 && firstYMove === true) {
-        yMoves[0] = 500
-        firstYMove = false;
-    }
-    if (moveDecider === 0 || x < 100) {
-        yMoves.push(x + 20)
-        if (yMoves[0] > yMoves[1]) {
-            //loop through a foreach array (get the element using queryselector!!!)
-            document.getElementById("redflyup").style.display = "none"
-            document.getElementById("redflydown").style.display = "none"
-            document.getElementById("redflystraight").style.display = "block"
-        } else if (yMoves[0] < yMoves[1]) {
-            document.getElementById("redflyup").style.display = "none"
-            document.getElementById("redflydown").style.display = "none"
-            document.getElementById("redflystraight").style.display = "block"
-
-        }
-        yMoves = []
-        yMoves[0] = x + 20
-    } else {
-        yMoves.push(x - 20)
-        if (yMoves[0] > yMoves[1]) {
-            document.getElementById("redflyup").style.display = "none"
-            document.getElementById("redflystraight").style.display = "none"
-            document.getElementById("redflydown").style.display = "block"
-        } else if (yMoves[0] < yMoves[1]) {
-            document.getElementById("redflyup").style.display = "none"
-            document.getElementById("redflystraight").style.display = "none"
-            document.getElementById("redflydown").style.display = "block"
-        }
-        yMoves = []
-        yMoves[0] = x - 20
-    }
-}
 
 //adds crosshair asset to the current mouse position
 
@@ -104,133 +38,230 @@ document.addEventListener('mousemove', (e) => {
     crosshair.style.transform = `translate(${e.clientX - 23}px, ${e.clientY - 23}px)`;
 });
 
-//generates a move to the left or to the right
+let blueleftPos = 1;
+let bluetopPos = 1;
+let redleftPos = 50;
+let redTopPos = 100;
+let blueMoveUp = true;
+let blueMoveRight = true;
+let redMoveRight = true;
+let redMoveUp = true;
 
-
-let scale = [1]
-
-let redleftPos = 0;
-let redTopPos = 0;
-let blueleftPos = 0;
-let bluetopPos = 0;
-let lastTime;
-
-generateYMove();
-
-let number;
-let xMove
-let lastXPosition = []
-let yMove;
-
-function performYMoveDown(time) {
-    redTopPos += 1
-    redleftPosExtCounter = redbirdColor.getBoundingClientRect().x
-    redleftPosExtCounter += 0.1
-    console.log(redbirdColor.getBoundingClientRect().x)
-    redbirdID = requestAnimationFrame(performYMove)
-    if (lastTime != null) {
-        const delta = time - lastTime
-        redbirdColor.style.top = `${parseFloat(redTopPos) + delta * 0.3}px`
-        redbirdColor.style.left = `${parseFloat(redleftPosExtCounter) + delta * 0.3}px`
-        if (redbirdColor.getBoundingClientRect().y > 100) {
-            cancelAnimationFrame(redbirdID)
-            yMove = "cancelled"
-            requestAnimationFrame(redbird);
-        }
-    }
-    lastTime = time
-    console.log(redbirdColor.getBoundingClientRect().x);}
-
-function performYMoveUp(time) {
-    redTopPos += 1
-    redleftPosExtCounter = redbirdColor.getBoundingClientRect().x
-    redleftPosExtCounter += 0.1
-    console.log(redbirdColor.getBoundingClientRect().x)
-    redbirdID = requestAnimationFrame(performYMoveUp)
-    document.getElementById("redflyup").style.display = "none";
-    document.getElementById("redflystraight").style.display = "none";
-    document.getElementById("redflydown").style.display = "block";
-    if (lastTime != null) {
-        const delta = time - lastTime
-        redbirdColor.style.top = `${parseFloat(redTopPos) + delta * 0.3}px`
-        redbirdColor.style.left = `${parseFloat(redleftPosExtCounter) + delta * 0.3}px`
-        if (redbirdColor.getBoundingClientRect().y > 100) {
-            cancelAnimationFrame(redbirdID)
-            yMove = "cancelled"
-            requestAnimationFrame(redbird);
-        }
-    }
-    lastTime = time
-    console.log(redbirdColor.getBoundingClientRect().x);
-}
-
-function redbird(time) {
-    generateXMove();
-    // generateYMove();
-    document.getElementById("redflyup").style.display = "none";
-    document.getElementById("redflystraight").style.display = "block";
-    document.getElementById("redflydown").style.display = "none";
-    redleftPos += 1;
-    redTopPos += 0.1;
-    redbirdColor.style.position = "absolute";
-    redbirdID = requestAnimationFrame(redbird)
-    if (lastTime != null) {
-        const delta = time - lastTime
-        redbirdColor.style.left = `${parseFloat(xMoves[0]) + delta * 0.3}px`
-        if (redbirdColor.getBoundingClientRect().x > 200) {
-           cancelAnimationFrame(redbirdID)
-            xMove = "cancelled"
-            performYMoveUp();
-           lastXPosition.push(redbirdColor.getBoundingClientRect().x)
-        }
-    }
-    lastTime = time
-    console.log(redbirdColor.getBoundingClientRect().x);
-}
-
-function performXMoveLeft() {
-
-}
-
-function performXMoveRight() {
-
-}
-
-let f;
-let i;
+let blueUp = document.getElementById("blueflyup")
+let blueStraight = document.getElementById("blueflystraight")
+let blueDown = document.getElementById("blueflydown")
+let redUp = document.getElementById("redflyup")
+let redStraight = document.getElementById("redflystraight")
+let redDown = document.getElementById("redflydown")
+let blueAfterKill;
 
 function bluebird() {
-    blueleftPos += 0.1;
+    if (bluebirdColor.style.display === "none" && blueAfterKill === true)  {
+        bluebirdColor.style.display = "block"
+        bluebirdColor.style.left = 0 + "px"
+        bluebirdColor.style.top = 0 + "px"
+        blueleftPos = 0
+        bluetopPos = 0
+        blueAfterKill = false;
+    }
+
     bluebirdColor.style.left = blueleftPos + "px";
-    for (i < 10; i++; ) {
+
+    if (blueMoveUp) {
+        bluetopPos -= 1;
+    } else {
         bluetopPos += 1;
     }
 
-    bluetopPos -= 0.1
+    if (blueMoveRight) {
+        blueleftPos += 1
+    } else {
+        blueleftPos -= 1;
+    }
 
     bluebirdColor.style.top = bluetopPos + "px";
-    bluebirdColor.style.position = "absolute";
-    bluebirdID = requestAnimationFrame(bluebird)
+
+    if (bluetopPos <= 0) {
+        blueMoveUp = false;
+        blueStraight.style.display = "none";
+        blueUp.style.display = "none";
+        blueDown.style.display = "block"
+    } else if (bluetopPos >= window.innerHeight - bluebirdColor.clientHeight) {
+        blueMoveUp = true;
+        blueStraight.style.display = "none";
+        blueUp.style.display = "block";
+    }
+
+    if (blueleftPos <= 0) {
+        blueMoveRight = true
+        bluebirdColor.style.transform = "rotateY(0deg)"
+    } else if (blueleftPos >= window.innerWidth - bluebirdColor.clientWidth) {
+        blueMoveRight = false
+        bluebirdColor.style.transform = "rotateY(180deg)"
+    }
+
+    bluebirdID = requestAnimationFrame(bluebird);
 }
 
-function cancelAnimation() {
-    console.log("click fired")
+let redAfterKill
+let yellowAfterKill
+
+function redbird() {
+    if (redbirdColor.style.display === "none" && redAfterKill === true)  {
+        redbirdColor.style.display = "block"
+        redbirdColor.style.left = 50 + "px"
+        redbirdColor.style.top = 50 + "px"
+        redleftPos = 50
+        redleftPos = 50
+        redAfterKill = false;
+    }
+
+    redbirdColor.style.left = redleftPos + "px";
+
+    if (redMoveUp) {
+        redTopPos -= 5;
+    } else {
+        redTopPos += 5;
+    }
+
+    if (redMoveRight) {
+        redleftPos += 2
+    } else {
+        redleftPos -= 2
+    }
+
+    redbirdColor.style.top = redTopPos + "px";
+
+    if (redTopPos <= 0) {
+        redMoveUp = false;
+        redStraight.style.display = "none";
+        redUp.style.display = "none";
+        redDown.style.display = "block"
+    } else if (redTopPos >= window.innerHeight - redbirdColor.clientHeight) {
+        redMoveUp = true;
+        redStraight.style.display = "none";
+        redUp.style.display = "block";
+    }
+
+    if (redleftPos <= 0) {
+        redMoveRight = true
+        redbirdColor.style.transform = "rotateY(0deg)"
+    } else if (redleftPos >= window.innerWidth - redbirdColor.clientWidth) {
+        redMoveRight = false
+        redbirdColor.style.transform = "rotateY(180deg)"
+    }
+
+    redbirdID = requestAnimationFrame(redbird);
+}
+
+let yellowLeftPos;
+let yellowTopPos;
+let yellowMoveUp
+let yellowMoveRight
+
+function yellowbird() {
+    if (yellowbirdColor.style.display === "none" && yellowAfterKill === true)  {
+        yellowbirdColor.style.display = "block"
+        yellowbirdColor.style.left = 50 + "px"
+        yellowbirdColor.style.top = 50 + "px"
+        yellowLeftPos = 100
+        yellowTopPos = 100
+        yellowAfterKill = false;
+    }
+
+    yellowbirdColor.style.left = yellowLeftPos + "px";
+
+    if (yellowMoveUp) {
+        yellowTopPos -= 3;
+    } else {
+        yellowTopPos += 3;
+    }
+
+    if (yellowMoveRight) {
+        yellowLeftPos += 3
+    } else {
+        yellowLeftPos -= 3
+    }
+
+    yellowbirdColor.style.top = yellowTopPos + "px";
+
+    if (yellowTopPos <= 0) {
+        yellowMoveUp = false;
+        redStraight.style.display = "none";
+        redUp.style.display = "none";
+        redDown.style.display = "block"
+    } else if (yellowTopPos >= window.innerHeight - yellowbirdColor.clientHeight) {
+        yellowMoveUp = true;
+        redStraight.style.display = "none";
+        redUp.style.display = "block";
+    }
+
+    if (yellowLeftPos <= 0) {
+        yellowMoveRight = true
+        yellowbirdColor.style.transform = "rotateY(0deg)"
+    } else if (yellowLeftPos >= window.innerWidth - yellowbirdColor.clientWidth) {
+        yellowMoveRight = false
+        yellowbirdColor.style.transform = "rotateY(180deg)"
+    }
+
+    yellowbirdID = requestAnimationFrame(yellowbird);
 }
 
 requestAnimationFrame(bluebird);
 requestAnimationFrame(redbird)
+requestAnimationFrame(yellowbird)
+
+let killCount = 0;
+
+bluebirdColor.addEventListener("click", () => {
+    cancelAnimationFrame(bluebirdID);
+    console.log("click fired")
+    let style = getComputedStyle(bluebirdColor);
+    birdYPos = style.getPropertyValue("top")
+    birdXPos = style.getPropertyValue("left")
+    let b = document.getElementById("bloodsplatter")
+    b.style.display = "block"
+    b.style.left = parseInt(birdXPos, 10) - 50 + "px"
+    b.style.top = parseInt(birdYPos, 10) - 40 + "px"
+    b.style.position = "fixed"
+    b.currentTime = 3;
+    gunshot3.play();
+    bluebirdColor.style.display = "none";
+    setTimeout(() => {
+        requestAnimationFrame(bluebird);
+        blueAfterKill = true;
+    }, 1000)
+    killCounter = document.getElementById("kills")
+    killCount++
+    killCounter.innerText = "Score: " + killCount
+});
+
+document.onclick = function() {
+    if (gunshot1.currentTime === 0) {
+        gunshot1.play()
+    }
+    setTimeout(gunshot1.currentTime = 0, 10000)
+}
 
 redbirdColor.addEventListener("click", (e) => {
     cancelAnimationFrame(redbirdID)
     console.log("click fired")
-})
-
-yellowbirdColor.addEventListener("click", (e) => {
-    cancelAnimationFrame(redbird)
-    console.log("click fired")
-})
-
-bluebirdColor.addEventListener("click", (e) => {
-    cancelAnimationFrame(bluebirdID)
-    console.log("click fired")
+    let style = getComputedStyle(redbirdColor);
+    birdYPos = style.getPropertyValue("top")
+    birdXPos = style.getPropertyValue("left")
+    let b = document.getElementById("bloodsplatter")
+    b.style.display = "block"
+    b.style.left = parseInt(birdXPos, 10) - 50 + "px"
+    b.style.top = parseInt(birdYPos, 10) - 40 + "px"
+    b.style.position = "fixed"
+    b.currentTime = 3;
+    gunshot3.play();
+    redbirdColor.style.display = "none";
+    setTimeout(() => {
+        requestAnimationFrame(redbird);
+        redAfterKill = true;
+    }, 1000)
+    killCounter = document.getElementById("kills")
+    killCount++
+    killCounter.innerText = "Score: " + killCount
 })

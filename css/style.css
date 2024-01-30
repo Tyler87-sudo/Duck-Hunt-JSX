@@ -1,35 +1,52 @@
 #crosshair {
     height: 5%;
-    position: absolute;
+    position: fixed;
     z-index: 0;
 }
 
-/*body {*/
-/*    cursor: none;*/
-/*}*/
+.bloodsplatter {
+    display: none;
+    width: 10%;
+    height: 10%;
+}
 
-/*.redbird {*/
-/*    position: absolute;*/
-/*}*/
+body {
+    background-image: url("https://bit.ly/2Q4q14a");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
 
-/*.bluebird {*/
-/*    position: absolute;*/
-/*}*/
+#bluebird {
+    position: absolute;
+}
 
-/*.yellowbird {*/
-/*    position: absolute;*/
-/*}*/
+#redbird {
+    position: absolute;
+}
+
+#yellowbird {
+    position: absolute;
+}
 
 .redflystraight {
     display: block;
+    position: fixed;
+    z-index: 1;
 }
 
 .redflyup {
     display: none;
+    position: fixed;
+    z-index: 1;
 }
 
 .redflydown {
     display: none;
+    position: fixed;
+    z-index: 1;
 }
 
 .yellowflyup {
@@ -49,12 +66,15 @@
 
 .blueflyup {
     display: none;
+    position: fixed;
 }
 
 .blueflydown {
     display: none;
+    position: fixed;
 }
 
 .blueflystraight {
     display: block;
+    position: fixed;
 }

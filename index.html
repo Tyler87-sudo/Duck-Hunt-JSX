@@ -9,9 +9,18 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<!--Import Audio, Video and Images -->
+<!--Sprites-->
 <img src="sprites/crosshair.png" id="crosshair">
-<!--End-->
+<!--Video-->
+<video class="bloodsplatter" id="bloodsplatter" src="video/blood.webm" autoplay muted></video>
+<!--Audio-->
+<audio id="gunshotSniper1" src="audio/gunshot1.mp3"></audio>
+<audio id="gunshotShotgun1" src="audio/gunshot2.mp3"></audio>
+<audio id="lasergunShot1" src="audio/gunshot3.mp3"></audio>
+<!--End Import-->
+<div id="killcounter">
+    <h1 id="kills"></h1>
+</div>
 <div id="redbird">
     <img src="sprites/redbird-upflap.png" class="redflyup" id="redflyup">
     <img src="sprites/redbird-midflap.png" class="redflystraight" id="redflystraight">
