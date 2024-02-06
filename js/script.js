@@ -64,6 +64,7 @@ let yellowStraight = document.getElementById("yellowflystraight")
 let blueAfterKill;
 let redAfterKill
 let yellowAfterKill;
+let killCount = 0;
 
 //functions for bird animations
 function bluebird() {
@@ -72,6 +73,8 @@ function bluebird() {
         blueleftPos = Math.floor(Math.random() * window.innerWidth)
         bluetopPos = Math.floor(Math.random() * window.innerHeight)
         blueAfterKill = false;
+        let b = document.getElementById("bloodsplatterblue")
+        b.currentTime = 0;
     }
 
     bluebirdColor.style.left = blueleftPos + "px";
@@ -121,6 +124,8 @@ function redbird() {
         redleftPos = Math.floor(Math.random() * window.innerWidth)
         redTopPos = Math.floor(Math.random() * window.innerHeight)
         redAfterKill = false;
+        let b = document.getElementById("bloodsplatterred")
+        b.currentTime = 0;
     }
 
     redbirdColor.style.left = redleftPos + "px";
@@ -150,7 +155,7 @@ function redbird() {
         redStraight.style.display = "none";
         redUp.style.display = "none";
         redDown.style.display = "block"
-    } else if (redTopPos >= window.innerHeight - redbirdColor.clientHeight) {
+    } else if (redTopPos >= window.innerHeight) {
         redMoveUp = true;
         redStraight.style.display = "none";
         redUp.style.display = "block";
@@ -159,7 +164,7 @@ function redbird() {
     if (redleftPos <= 0) {
         redMoveRight = true
         redbirdColor.style.transform = "rotateY(0deg)"
-    } else if (redleftPos >= window.innerWidth - redbirdColor.clientWidth) {
+    } else if (redleftPos >= window.innerWidth) {
         redMoveRight = false
         redbirdColor.style.transform = "rotateY(180deg)"
     }
@@ -202,14 +207,14 @@ function yellowbird() {
 
     if (yellowTopPos <= 0) {
         yellowMoveUp = false;
-    } else if (yellowTopPos >= window.innerHeight - yellowbirdColor.clientHeight) {
+    } else if (yellowTopPos >= window.innerHeight) {
         yellowMoveUp = true;
     }
 
     if (yellowLeftPos <= 0) {
         yellowMoveRight = true
         yellowbirdColor.style.transform = "rotateY(0deg)"
-    } else if (yellowLeftPos >= window.innerWidth - yellowbirdColor.clientWidth) {
+    } else if (yellowLeftPos >= window.innerWidth) {
         yellowMoveRight = false
         yellowbirdColor.style.transform = "rotateY(180deg)"
     }
@@ -220,8 +225,6 @@ function yellowbird() {
 requestAnimationFrame(bluebird);
 requestAnimationFrame(redbird)
 requestAnimationFrame(yellowbird)
-
-let killCount = 0;
 
 bluebirdColor.addEventListener("click", () => {
     cancelAnimationFrame(bluebirdID);
@@ -243,7 +246,7 @@ bluebirdColor.addEventListener("click", () => {
     }, 1000)
     killCounter = document.getElementById("kills")
     killCount++
-    killCounter.innerText = "Score: " + killCount
+    killCounter.innerText = "Killcount: " + killCount
 });
 
 document.onclick = function() {
@@ -264,7 +267,7 @@ redbirdColor.addEventListener("click", (e) => {
     let style = getComputedStyle(redbirdColor);
     birdYPos = style.getPropertyValue("top")
     birdXPos = style.getPropertyValue("left")
-    let b = document.getElementById("bloodsplatter")
+    let b = document.getElementById("bloodsplatterred")
     b.style.display = "block"
     b.style.left = parseInt(birdXPos, 10) - 50 + "px"
     b.style.top = parseInt(birdYPos, 10) - 40 + "px"
@@ -278,7 +281,7 @@ redbirdColor.addEventListener("click", (e) => {
     }, 1000)
     killCounter = document.getElementById("kills")
     killCount++
-    killCounter.innerText = "Score: " + killCount
+    killCounter.innerText = "Killcount: " + killCount
 })
 
 yellowbirdColor.addEventListener("click", (e) => {
@@ -300,5 +303,5 @@ yellowbirdColor.addEventListener("click", (e) => {
     }, 1000)
     killCounter = document.getElementById("kills")
     killCount++
-    killCounter.innerText = "Score: " + killCount
+    killCounter.innerText = "Killcount: " + killCount
 })

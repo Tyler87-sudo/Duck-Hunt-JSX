@@ -4,7 +4,7 @@
     z-index: 0;
 }
 
-.bloodsplatter {
+.bloodsplatterred {
     display: none;
     width: 10%;
     height: 10%;
@@ -67,6 +67,11 @@ body {
 .yellowflydown {
     display: none;
     position: fixed
+}
+
+#killcounter {
+    margin-left: 50%;
+    position: fixed;
 }
 
 .yellowflystraight {
