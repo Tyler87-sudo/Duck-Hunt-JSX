@@ -35,7 +35,7 @@ let crosshair = document.getElementById("crosshair")
 //adds crosshair asset to the current mouse position
 
 document.addEventListener('mousemove', (e) => {
-    crosshair.style.transform = `translate(${e.clientX - 23}px, ${e.clientY - 23}px)`;
+    crosshair.style.transform = `translate(${e.clientX - 18}px, ${e.clientY - 18}px)`;
 });
 
 //adds global variables required in functions
