@@ -131,8 +131,13 @@ function redbird(timestampred) {
     currentRedTime = timestampred;
     deltaRedTime = currentRedTime - previousRedTime;
 
+    if (deltaRedTime > 0) {
+        frames_per_second = deltaRedTime
+    }
+
     if (deltaRedTime > interval) {
         previousRedTime = currentRedTime - (deltaRedTime % interval);
+        console.log(deltaRedTime);
 
         if (redbirdColor.style.display === "none" && redAfterKill === true)  {
             redbirdColor.style.display = "block"
