@@ -118,109 +118,139 @@ function bluebird() {
     bluebirdID = requestAnimationFrame(bluebird);
 }
 
-function redbird() {
-    if (redbirdColor.style.display === "none" && redAfterKill === true)  {
-        redbirdColor.style.display = "block"
-        redleftPos = Math.floor(Math.random() * window.innerWidth)
-        redTopPos = Math.floor(Math.random() * window.innerHeight)
-        redAfterKill = false;
-        let b = document.getElementById("bloodsplatterred")
-        b.currentTime = 0;
-    }
+let frames_per_second = 120;
 
-    redbirdColor.style.left = redleftPos + "px";
+let interval = Math.floor(1000 / frames_per_second);
+let startRedTime = performance.now();
+let previousRedTime = startRedTime;
 
-    if (redMoveUp) {
-        redTopPos -= 5;
-        redUp.style.display = "block";
-        redStraight.style.display = "none"
-        redDown.style.display = "none"
-    } else {
-        redTopPos += 5;
-        redUp.style.display = "none";
-        redStraight.style.display = "none"
-        redDown.style.display = "block"
-    }
+let currentRedTime = 0;
+let deltaRedTime = 0;
 
-    if (redMoveRight) {
-        redleftPos += 2
-    } else {
-        redleftPos -= 2
-    }
+function redbird(timestampred) {
+    currentRedTime = timestampred;
+    deltaRedTime = currentRedTime - previousRedTime;
 
-    redbirdColor.style.top = redTopPos + "px";
+    if (deltaRedTime > interval) {
+        previousRedTime = currentRedTime - (deltaRedTime % interval);
 
-    if (redTopPos <= 0) {
-        redMoveUp = false;
-        redStraight.style.display = "none";
-        redUp.style.display = "none";
-        redDown.style.display = "block"
-    } else if (redTopPos >= window.innerHeight) {
-        redMoveUp = true;
-        redStraight.style.display = "none";
-        redUp.style.display = "block";
-    }
+        if (redbirdColor.style.display === "none" && redAfterKill === true)  {
+            redbirdColor.style.display = "block"
+            redleftPos = Math.floor(Math.random() * window.innerWidth)
+            redTopPos = Math.floor(Math.random() * window.innerHeight)
+            redAfterKill = false;
+            let b = document.getElementById("bloodsplatterred")
+            b.currentTime = 0;
+        }
 
-    if (redleftPos <= 0) {
-        redMoveRight = true
-        redbirdColor.style.transform = "rotateY(0deg)"
-    } else if (redleftPos >= window.innerWidth) {
-        redMoveRight = false
-        redbirdColor.style.transform = "rotateY(180deg)"
+        redbirdColor.style.left = redleftPos + "px";
+
+        if (redMoveUp) {
+            redTopPos -= 5;
+            redUp.style.display = "block";
+            redStraight.style.display = "none"
+            redDown.style.display = "none"
+        } else {
+            redTopPos += 5;
+            redUp.style.display = "none";
+            redStraight.style.display = "none"
+            redDown.style.display = "block"
+        }
+
+        if (redMoveRight) {
+            redleftPos += 2
+        } else {
+            redleftPos -= 2
+        }
+
+        redbirdColor.style.top = redTopPos + "px";
+
+        if (redTopPos <= 0) {
+            redMoveUp = false;
+            redStraight.style.display = "none";
+            redUp.style.display = "none";
+            redDown.style.display = "block"
+        } else if (redTopPos >= window.innerHeight) {
+            redMoveUp = true;
+            redStraight.style.display = "none";
+            redUp.style.display = "block";
+        }
+
+        if (redleftPos <= 0) {
+            redMoveRight = true
+            redbirdColor.style.transform = "rotateY(0deg)"
+        } else if (redleftPos >= window.innerWidth) {
+            redMoveRight = false
+            redbirdColor.style.transform = "rotateY(180deg)"
+        }
+
     }
 
     redbirdID = requestAnimationFrame(redbird);
 }
 
+let startYellowTime = performance.now();
+let previousYellowTime = startRedTime;
 
-function yellowbird() {
-    if (yellowbirdColor.style.display === "none" && yellowAfterKill === true)  {
-        yellowbirdColor.style.display = "block"
-        yellowLeftPos = Math.floor(Math.random() * window.innerWidth)
-        yellowTopPos = Math.floor(Math.random() * window.innerHeight)
-        yellowAfterKill = false;
-        let b = document.getElementById("bloodsplatteryellow")
-        b.currentTime = 0;
+let currentYellowTime = 0;
+let deltaYellowTime = 0;
+
+function yellowbird(timestampyellow) {
+    currentYellowTime = timestampyellow;
+    deltaYellowTime = currentYellowTime - previousYellowTime;
+
+    if (deltaYellowTime > interval) {
+        previousYellowTime = currentYellowTime - (deltaYellowTime % interval);
+
+        if (yellowbirdColor.style.display === "none" && yellowAfterKill === true) {
+            yellowbirdColor.style.display = "block"
+            yellowLeftPos = Math.floor(Math.random() * window.innerWidth)
+            yellowTopPos = Math.floor(Math.random() * window.innerHeight)
+            yellowAfterKill = false;
+            let b = document.getElementById("bloodsplatteryellow")
+            b.currentTime = 0;
+        }
+
+            yellowbirdColor.style.left = yellowLeftPos + "px";
+
+            if (yellowMoveUp) {
+                yellowTopPos -= 3;
+                yellowUp.style.display = "block";
+                yellowStraight.style.display = "none"
+                yellowDown.style.display = "none"
+            } else {
+                yellowTopPos += 3;
+                yellowUp.style.display = "none";
+                yellowStraight.style.display = "none"
+                yellowDown.style.display = "block"
+            }
+
+            if (yellowMoveRight) {
+                yellowLeftPos += 3
+            } else {
+                yellowLeftPos -= 3
+            }
+
+            yellowbirdColor.style.top = yellowTopPos + "px";
+
+            if (yellowTopPos <= 0) {
+                yellowMoveUp = false;
+            } else if (yellowTopPos >= window.innerHeight) {
+                yellowMoveUp = true;
+            }
+
+            if (yellowLeftPos <= 0) {
+                yellowMoveRight = true
+                yellowbirdColor.style.transform = "rotateY(0deg)"
+            } else if (yellowLeftPos >= window.innerWidth) {
+                yellowMoveRight = false
+                yellowbirdColor.style.transform = "rotateY(180deg)"
+            }
+
+
+        }
+        yellowbirdID = requestAnimationFrame(yellowbird);
     }
-
-    yellowbirdColor.style.left = yellowLeftPos + "px";
-
-    if (yellowMoveUp) {
-        yellowTopPos -= 3;
-        yellowUp.style.display = "block";
-        yellowStraight.style.display = "none"
-        yellowDown.style.display = "none"
-    } else {
-        yellowTopPos += 3;
-        yellowUp.style.display = "none";
-        yellowStraight.style.display = "none"
-        yellowDown.style.display = "block"
-    }
-
-    if (yellowMoveRight) {
-        yellowLeftPos += 3
-    } else {
-        yellowLeftPos -= 3
-    }
-
-    yellowbirdColor.style.top = yellowTopPos + "px";
-
-    if (yellowTopPos <= 0) {
-        yellowMoveUp = false;
-    } else if (yellowTopPos >= window.innerHeight) {
-        yellowMoveUp = true;
-    }
-
-    if (yellowLeftPos <= 0) {
-        yellowMoveRight = true
-        yellowbirdColor.style.transform = "rotateY(0deg)"
-    } else if (yellowLeftPos >= window.innerWidth) {
-        yellowMoveRight = false
-        yellowbirdColor.style.transform = "rotateY(180deg)"
-    }
-
-    yellowbirdID = requestAnimationFrame(yellowbird);
-}
 
 requestAnimationFrame(bluebird);
 requestAnimationFrame(redbird)
