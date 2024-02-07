@@ -190,7 +190,7 @@ function redbird(timestampred) {
 }
 
 let startYellowTime = performance.now();
-let previousYellowTime = startRedTime;
+let previousYellowTime = startYellowTime;
 
 let currentYellowTime = 0;
 let deltaYellowTime = 0;
@@ -253,8 +253,8 @@ function yellowbird(timestampyellow) {
     }
 
 requestAnimationFrame(bluebird);
-requestAnimationFrame(redbird)
-requestAnimationFrame(yellowbird)
+requestAnimationFrame(redbird);
+requestAnimationFrame(yellowbird);
 
 bluebirdColor.addEventListener("click", () => {
     cancelAnimationFrame(bluebirdID);
