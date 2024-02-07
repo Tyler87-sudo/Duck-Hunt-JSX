@@ -119,6 +119,7 @@ function bluebird() {
 }
 
 function redbird() {
+
     if (redbirdColor.style.display === "none" && redAfterKill === true)  {
         redbirdColor.style.display = "block"
         redleftPos = Math.floor(Math.random() * window.innerWidth)
@@ -131,21 +132,21 @@ function redbird() {
     redbirdColor.style.left = redleftPos + "px";
 
     if (redMoveUp) {
-        redTopPos -= 5;
+        redTopPos -= 0.5;
         redUp.style.display = "block";
         redStraight.style.display = "none"
         redDown.style.display = "none"
     } else {
-        redTopPos += 5;
+        redTopPos += 0.5;
         redUp.style.display = "none";
         redStraight.style.display = "none"
         redDown.style.display = "block"
     }
 
     if (redMoveRight) {
-        redleftPos += 2
+        redleftPos += 0.2
     } else {
-        redleftPos -= 2
+        redleftPos -= 0.2
     }
 
     redbirdColor.style.top = redTopPos + "px";
@@ -186,21 +187,21 @@ function yellowbird() {
     yellowbirdColor.style.left = yellowLeftPos + "px";
 
     if (yellowMoveUp) {
-        yellowTopPos -= 3;
+        yellowTopPos -= 0.4;
         yellowUp.style.display = "block";
         yellowStraight.style.display = "none"
         yellowDown.style.display = "none"
     } else {
-        yellowTopPos += 3;
+        yellowTopPos += 0.4;
         yellowUp.style.display = "none";
         yellowStraight.style.display = "none"
         yellowDown.style.display = "block"
     }
 
     if (yellowMoveRight) {
-        yellowLeftPos += 3
+        yellowLeftPos += 0.7
     } else {
-        yellowLeftPos -= 3
+        yellowLeftPos -= 0.7
     }
 
     yellowbirdColor.style.top = yellowTopPos + "px";
