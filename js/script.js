@@ -119,7 +119,7 @@ function bluebird() {
 }
 
 function redbird() {
-
+    //Spawns the redbird again
     if (redbirdColor.style.display === "none" && redAfterKill === true)  {
         redbirdColor.style.display = "block"
         redleftPos = Math.floor(Math.random() * window.innerWidth)
